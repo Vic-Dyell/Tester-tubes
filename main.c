@@ -60,11 +60,12 @@ int main() {
         int r;
         boolean udahroll = false;
         boolean endturn = false;
+        printf("Peta Anda: ");
+        displayMap(M, P.contents[urutan].position);
         time_t t;
         srand((unsigned) (time(&t)));
         r = rskill(t);
         nambahskill(&P.contents[urutan].skill, r);
-        printf("SAMPAI DISINI");
         while (endturn == false) {
             char cmd[10]; 
             int dadu;
@@ -92,7 +93,10 @@ int main() {
                 udahroll = true;
                 MovePlayer(&P, dadu, M, urutan, Pt);
             }
-            
+            else if (strcmp(cmd, "ROLL")==0 && udahroll==true){
+                printf("Maaf Anda telah pernah melakukan roll pada turn ini.\n");
+                printf("Mohon untuk tidak melakukan roll lagi\n");
+            }    
             else if (strcmp(cmd, "BUFF")==0){
                 if (P.contents[urutan].playerBuff.isCerminPengganda==true){
                     printf("Anda memiliki buff Cermin Pengganda\n");
@@ -196,6 +200,10 @@ int main() {
                             // buat fungsi print nama ada siapa aja
                             printf("%d Masukkan nomor berapa yang ingin Anda tukar :", &tukar);
                             // buat fungsi penukar posisi yaitu dengan menukar nama dari list player
+                            int dummy;
+                            dummy = P.contents[urutan].position;
+                            P.contents[urutan].position = P.contents[tukar].position;
+                            P.contents[tukar].position = dummy;
                         }
                         // kalo 0 langsung skip
                     }
