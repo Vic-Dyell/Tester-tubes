@@ -3,7 +3,7 @@
 #define MAP_H
 
 #include "boolean.h"
-
+#include <time.h>
 
 /*Ukuran panjang maksimum peta*/
 #define MAX_Length 100
@@ -33,7 +33,7 @@ void createEmptyMap (MAP *M);
 /* I.S. Sebuah array map M terdefinisi*/
 /* F.S. Sebuah array map M dengan ukuran nEff = 0 terbentuk*/
 
-void displayMap (MAP M);
+void displayMap (MAP M, int posisi);
 /* I.S. Sebuah MAP M terdefinisi*/
 /* F.S. Nilai dari array Map M ditulis ke layar */
 
@@ -49,7 +49,7 @@ Portal setPortal(Portal P, int n);
 /* I.S Sebuah portal terdefinisi*/
 /* F.S. Portal P dengan Neff n akan terisi dengan -1 */
 
-int rolldadu(int maks);
-/* Fungsi untuk melakukan roll dadu sesuai dengan maksimumnya */
+int roll (time_t y, int maksdadu);
+/* Untuk merandom dadu */
 
 #endif

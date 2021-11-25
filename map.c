@@ -3,6 +3,7 @@
 #include "mesin_kata.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void createEmptyMap (MAP *M ){
     /*KAMUS LOKAL*/
@@ -12,14 +13,19 @@ void createEmptyMap (MAP *M ){
 }
 
 
-void displayMap (MAP M){
+void displayMap (MAP M, int posisi){
     /*KAMUS LOKAL*/
     int i;
 
     /*ALGORITMA*/
     i = 0;
     for (i; i<=Length(M);i++) {
-        printf("%d",M.contents[i]);
+        if (i==posisi){
+            printf("%c", '*');
+        }
+        else{
+            printf("%c",M.contents[i]);
+        }    
     }
 }
 
@@ -57,10 +63,6 @@ Portal setPortal(Portal P, int n){
     return P;
 }
 
-int rolldadu(int maks){
-    int ndadu;
-    srand((unsigned)time(0));
-    ndadu=(rand() % maks) + 1; 
-    return ndadu;
+int roll (time_t y, int maksdadu){ 
+    return (rand() % maksdadu) + 1;
 }
-
