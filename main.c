@@ -2,6 +2,7 @@
 #include "listskill.h"
 #include "boolean.h"
 #include "player.h"
+#include "status.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "map.h"
@@ -63,6 +64,7 @@ int main() {
         srand((unsigned) (time(&t)));
         r = rskill(t);
         nambahskill(&P.contents[urutan].skill, r);
+        printf("SAMPAI DISINI");
         while (endturn == false) {
             char cmd[10]; 
             int dadu;
@@ -91,8 +93,26 @@ int main() {
                 MovePlayer(&P, dadu, M, urutan, Pt);
             }
             
+            else if (strcmp(cmd, "BUFF")==0){
+                if (P.contents[urutan].playerBuff.isCerminPengganda==true){
+                    printf("Anda memiliki buff Cermin Pengganda\n");
+                }
+                if (P.contents[urutan].playerBuff.isImun==true){
+                    printf("Anda memiliki buff Imunitas Teleport\n");
+                }
+                if (P.contents[urutan].playerBuff.isSenterPembesar==true){
+                    printf("Anda memiliki buff Senter Pembesar Hoki\n");
+                }
+                if (P.contents[urutan].playerBuff.isSenterPengecil==true){
+                    printf("Anda memiliki buff Senter Pengecil Hoki\n");
+                }
+                if(P.contents[urutan].playerBuff.isCerminPengganda==false && P.contents[urutan].playerBuff.isImun==false && P.contents[urutan].playerBuff.isSenterPembesar==false && P.contents[urutan].playerBuff.isSenterPengecil==false){
+                    printf("Yaahh Anda belum memiliki buff apapun saat ini\n");
+                }
+            }
+
             else if (strcmp(cmd, "INSPECT")==0){
-                ;
+                inspect(Pt, M);
             }
 
             else if (strcmp(cmd, "MAP")==0){
@@ -186,6 +206,7 @@ int main() {
                 endturn = true;
                 urutan = urutan + 1;
                 if (urutan>npemain){ // SUDAH HABIS 1 RONDE
+                    // push stack buat undo
                     urutan = (urutan % npemain);
                 }
             } 
