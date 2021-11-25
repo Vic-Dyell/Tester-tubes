@@ -35,10 +35,6 @@ int main() {
         srand((unsigned) (time(&t)));
         r = rskill(t);
         nambahskill(&P.contents[urutan].skill, r);
-        boolean imunterpakai = false;
-        boolean penggandaterpakai = false;
-        boolean pembesarterpakai = false;
-        boolean pengecilterpakai = false;
         while (endturn == false) {
             char cmd[10];
             printf("Masukkan command (dengan semua huruf kapital): ");
@@ -67,57 +63,54 @@ int main() {
                         printf("Skill Anda telah berhasil dibuang\n");
                     }
                     else if (x>0){ // pakai skill
-                        if (lihatisi(P.contents[urutan].skill, x)==1 && imunterpakai==false){
+                        if (lihatisi(P.contents[urutan].skill, x)==1 && BuffImunitas(P)==false){
                             BuffImunitas(P) = true; // P di sini list player
                             printf("%s ", P.contents[urutan].playerName);
                             printf("memakai skill Pintu Ga Kemana-Mana.\n");
                             buangskill(&P.contents[urutan].skill, x);
-                            imunterpakai = true;
                             // efek bisa menolak teleport
                         }
-                        else if (lihatisi(P.contents[urutan].skill, x)==1 && imunterpakai==true){
+                        else if (lihatisi(P.contents[urutan].skill, x)==1 && BuffImunitas(P)==true){
                             printf("Anda telah memiliki buff imunitas teleport\n");
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==2 && penggandaterpakai==false){
+                        else if (lihatisi(P.contents[urutan].skill,x)==2 && BuffCerminPengganda(P)==false){
                             BuffCerminPengganda(P) = true;
                             printf("%s ", P.contents[urutan].playerName);
                             printf("memakai skill Cermin Pengganda.\n");
                             buangskill(&P.contents[urutan].skill, x);
-                            penggandaterpakai = true;
                             // efek nya mengcopy skill ke InsertLast(L)
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==2 && penggandaterpakai==true){
+                        else if (lihatisi(P.contents[urutan].skill,x)==2 && BuffCerminPengganda(P)==true){
                             printf("Anda telah memiliki buff cermin pengganda\n");
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==3 && pembesarterpakai==false && pengecilterpakai==false){
+                        else if (lihatisi(P.contents[urutan].skill,x)==3 && BuffPembesarHoki(P)==false && BuffPengecilHoki(P)==false){
                             BuffPembesarHoki(P) = true;
                             printf("%s ", P.contents[urutan].playerName);
                             printf("memakai skill Senter Pembesar Hoki.\n");
                             buangskill(&P.contents[urutan].skill, x);
-                            pembesarterpakai = true;
                             // efek nya ke dadu
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==3 && (pembesarterpakai==true || pengecilterpakai==true)){
-                            if (pembesarterpakai==true){
+                        else if (lihatisi(P.contents[urutan].skill,x)==3 && (BuffPembesarHoki(P)==true || BuffPengecilHoki(P)==true)){
+                            if (BuffPembesarHoki(P)==true){
                                 printf("Anda telah memiliki buff senter pembesar hoki\n");
                             }
-                            else if (pengecilterpakai==true){
+                            else if (BuffPengecilHoki(P)==true){
                                 printf("Anda telah memiliki buff senter pengecil hoki\n");
                             }
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==4 && pembesarterpakai==false && pengecilterpakai==false){
+                        else if (lihatisi(P.contents[urutan].skill,x)==4 && BuffPembesarHoki(P)==false && BuffPengecilHoki(P)==false){
                             BuffPengecilHoki(P) = true;
                             printf("%s ", P.contents[urutan].playerName);
                             printf("memakai skill Senter Pengecil Hoki\n");
                             buangskill(&P.contents[urutan].skill, x);
-                            pengecilterpakai = true;
+                            BuffPengecilHoki(P) = true;
                             // efek nya ke dadu
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==4 && (pembesarterpakai==true || pengecilterpakai==true)){
-                            if (pembesarterpakai==true){
+                        else if (lihatisi(P.contents[urutan].skill,x)==4 && (BuffPembesarHoki(P)==true || BuffPengecilHoki(P)==true)){
+                            if (BuffPembesarHoki(P)==true){
                                 printf("Anda telah memiliki buff senter pembesar hoki\n");
                             }
-                            else if (pengecilterpakai==true){
+                            else if (BuffPengecilHoki(P)==true){
                                 printf("Anda telah memiliki buff senter pengecil hoki\n");
                             }
                         }
@@ -135,7 +128,7 @@ int main() {
             else if (strcmp(cmd, "ENDTURN")==0){
                 endturn = true;
                 urutan = urutan + 1;
-                if (urutan>npemain){
+                if (urutan>npemain){ // SUDAH HABIS 1 RONDE
                     urutan = (urutan % npemain);
                 }
             } 
