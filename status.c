@@ -164,8 +164,9 @@ void map(status s){
 }
 
 /*Command inspect*/
-void inspect(Portal P, MAP M, int petak){
+void inspect(Portal P, MAP M){
 /* Melakukan pencetakan apakah petak yang di input memiliki telporter atau penghalang*/
+    int petak;
     scanf("Masukkan petak: %d\n", &petak);
 
     // petak memiliki teleporter

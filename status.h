@@ -119,7 +119,7 @@ int posisi(status s, IdxType i);
 void map(status s);
 /*Melakukan pencetakan nama pemain, peta, dan posisi pemain*/
 /*Command inspect*/
-void inspect(Portal P, MAP M, int petak);
+void inspect(Portal P, MAP M);
 /* Melakukan pencetakan apakah petak yang di input memiliki telporter atau penghalang*/
 
 
