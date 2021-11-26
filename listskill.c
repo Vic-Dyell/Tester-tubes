@@ -61,51 +61,6 @@ address Search (Listskill L, infotype X){
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 
-/****************** PRIMITIF BERDASARKAN NILAI ******************/
-/*** PENAMBAHAN ELEMEN ***/
-void InsVFirst (Listskill *L, infotype X){
-    address P;
-    P = Alokasi(X);
-    if (P != Nil) {
-        InsertFirst(L, P);
-    }
-}
-/* I.S. L mungkin kosong */
-/* F.S. Melakukan alokasi sebuah elemen dan */
-/* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-void InsVLast (Listskill *L, infotype X){
-    address P = Alokasi(X);
-    if (P != Nil){
-        InsertLast(L, P);
-    }    
-}
-/* I.S. L mungkin kosong */
-/* F.S. Melakukan alokasi sebuah elemen dan */
-/* menambahkan elemen list di akhir: elemen terakhir yang baru */
-/* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
-
-/*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (Listskill *L, infotype *X){
-    address P;
-    DelFirst(L, &P);
-    *X = Info(P);
-    Dealokasi(P);
-}
-/* I.S. List L tidak kosong  */
-/* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
-/*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (Listskill *L, infotype *X){
-    address P;
-    DelLast(L, &P);
-    *X = Info(P);
-    Dealokasi(P);
-}
-/* I.S. list tidak kosong */
-/* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
-/*      dan alamat elemen terakhir di-dealokasi */
-
-/****************** PRIMITIF BERDASARKAN ALAMAT ******************/
-/*** PENAMBAHAN ELEMEN BERDASARKAN ALAMAT ***/
 void InsertFirst (Listskill *L, address P){
     if (IsEmpty(*L)) {
         First(*L) = P;
@@ -132,36 +87,10 @@ void InsertLast (Listskill *L, address P){
         Prev(P) = Last(*L);
         Last(*L) = P;
     }
-
 }
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
-void InsertAfter (Listskill *L, address P, address Prec){
-    if (Prec == Last(*L)) {
-        InsertLast(L, P) ;
-    }
-    else {
-        Next(P) = Next(Prec) ;
-        Next(Prec) = P ;
-        Prev(P) = Prec ;
-        Prev(Next(P)) = P ;
-    }    
-}
-/* I.S. Prec pastilah elemen list; P sudah dialokasi  */
-/* F.S. Insert P sebagai elemen sesudah elemen beralamat Prec */
-void InsertBefore (Listskill *L, address P, address Succ){
-    if (Succ == First(*L)) {
-        InsertFirst(L, P) ;
-    }
-    else {
-        Next(Prev(Succ)) = P ;
-        Next(P) = Succ ;
-        Prev(P) = Prev(Succ) ;
-        Prev(Succ) = P ;
-    }
-}
-/* I.S. Succ pastilah elemen list; P sudah dialokasi  */
-/* F.S. Insert P sebagai elemen sebelum elemen beralamat Succ */
+
 
 /*** PENGHAPUSAN SEBUAH ELEMEN ***/
 void DelFirst (Listskill *L, address *P){
@@ -191,27 +120,7 @@ void DelLast (Listskill *L, address *P){
 /* F.S. P adalah alamat elemen terakhir list sebelum penghapusan  */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* Last element baru adalah predesesor elemen pertama yg lama, jika ada */
-void DelP (Listskill *L, infotype X){
-    address P;
-    P = Search(*L, X);
-    if (P!=Nil){
-        if (Prev(P)!=Nil) {
-            DelAfter(L, P, Prev(P));
-        }
-        else if (Next(P)!=Nil){
-            DelBefore(L, P, Next(P));
-        }
-        else {
-            Last(*L)=Nil;
-            First(*L)=Nil;
-        }
-    }
-}
-/* I.S. Sembarang */
-/* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
-/* maka P dihapus dari list dan didealokasi */
-/* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
-/* List mungkin menjadi kosong karena penghapusan */
+
 void DelAfter (Listskill *L, address *Pdel, address Prec){
     *Pdel = Next(Prec);
     Next(Prec) = Next(*Pdel);
@@ -227,66 +136,6 @@ void DelAfter (Listskill *L, address *Pdel, address Prec){
 /* I.S. List tidak kosong. Prec adalah anggota list. */
 /* F.S. Menghapus Next(Prec): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
-void DelBefore (Listskill *L, address *Pdel, address Succ){
-    *Pdel = Prev(Succ);
-    Prev(Succ) = Prev(*Pdel);
-    if (Prev(*Pdel)!=Nil){
-        Next(Prev(*Pdel)) = Succ;
-    }
-    else {
-        First(*L) = Succ;
-    }
-    Next(*Pdel) = Nil;
-    Prev(*Pdel) = Nil;
-}
-/* I.S. List tidak kosong. Succ adalah anggota list. */
-/* F.S. Menghapus Prev(Succ): */
-/*      Pdel adalah alamat elemen list yang dihapus  */
-
-/****************** PROSES SEMUA ELEMEN LIST ******************/
-void PrintForward (Listskill L){
-    address CP;
-    printf("[");
-    if (IsEmpty(L) == false){
-        CP = First(L);
-        do {
-            printf("%d", Info(CP));
-            CP = Next(CP);
-            if (CP!=Nil){
-                printf(",");
-            }
-        }while (CP!=Nil);
-    }
-    printf("]");
-}
-/* I.S. List mungkin kosong */
-/* F.S. Jika list tidak kosong, isi list dicetak dari elemen pertama */
-/* ke elemen terakhir secara horizontal ke kanan: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika list kosong : menulis [] */
-/* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
-void PrintBackward (Listskill L){
-    address CP;
-    printf("[");
-    if (IsEmpty(L) == false){
-        CP = Last(L);
-        do {
-            printf("%d", Info(CP));
-            CP = Prev(CP);
-            if (CP!=Nil){
-                printf(",");
-            }
-        }while (CP!=Nil);
-    }
-    printf("]");
-}
-/* I.S. List mungkin kosong */
-/* F.S. Jika list tidak kosong, isi list dicetak dari elemen terakhir */
-/* ke elemen pertama secara horizontal ke kanan: [en,en-1,...,e2,e1] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [30,20,1] */
-/* Jika list kosong : menulis [] */
-/* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
-
 
 
 int rskill (time_t t){ // 0-9
