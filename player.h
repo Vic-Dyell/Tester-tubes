@@ -25,7 +25,6 @@ typedef struct tPlayer {
 	Listskill skill;  // diambil dari listskill
 	Buff playerBuff;  // buff yang dimiliki player 
     int position;
-
 } Player;
 
 typedef struct {

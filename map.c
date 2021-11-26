@@ -18,7 +18,7 @@ void displayMap (MAP M, int posisi){
     int i;
 
     /*ALGORITMA*/
-    i = 0;
+    i = 1;
     for (i; i<=Length(M);i++) {
         if (i==posisi){
             printf("%c", '*');
@@ -27,6 +27,7 @@ void displayMap (MAP M, int posisi){
             printf("%c",M.contents[i]);
         }    
     }
+    printf("\n");
 }
 
 void copyMap (MAP *M1, MAP M2){

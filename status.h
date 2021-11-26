@@ -22,7 +22,7 @@ typedef struct
 } status;
 
 /* SELEKTOR MAP */
-#define Length(s) (s).Neff
+#define Lengthst(s) (s).Neff
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create status kosong */

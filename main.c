@@ -3,9 +3,9 @@
 #include "boolean.h"
 #include "player.h"
 #include "status.h"
+#include "map.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "map.h"
 #include <time.h>
 #include <math.h>
 
@@ -62,6 +62,7 @@ int main() {
         boolean endturn = false;
         printf("Peta Anda: ");
         displayMap(M, P.contents[urutan].position);
+        printf("\n");
         time_t t;
         srand((unsigned) (time(&t)));
         r = rskill(t);
@@ -91,7 +92,7 @@ int main() {
                 }
                 printf("Anda mendapatkan dadu bernilai : %d\n", dadu);
                 udahroll = true;
-                MovePlayer(&P, dadu, M, urutan, Pt);
+                P.contents[urutan].position = MovePlayer(&P, dadu, M, urutan, Pt);
             }
             else if (strcmp(cmd, "ROLL")==0 && udahroll==true){
                 printf("Maaf Anda telah pernah melakukan roll pada turn ini.\n");
@@ -153,15 +154,25 @@ int main() {
                         else if (lihatisi(P.contents[urutan].skill, x)==1 && P.contents[urutan].playerBuff.isImun==true){
                             printf("Anda telah memiliki buff imunitas teleport\n");
                         }
-                        else if (lihatisi(P.contents[urutan].skill,x)==2 && P.contents[urutan].playerBuff.isCerminPengganda==false){
+                        else if (lihatisi(P.contents[urutan].skill,x)==2 && P.contents[urutan].playerBuff.isCerminPengganda==false && NbElmt(P.contents[urutan].skill)<=9){
                             P.contents[urutan].playerBuff.isCerminPengganda = true;
                             printf("%s ", P.contents[urutan].playerName);
                             printf("memakai skill Cermin Pengganda.\n");
                             buangskill(&P.contents[urutan].skill, x);
-                            // efek nya mengcopy skill ke InsertLast(L)
+                            int r1, r2;
+                            time_t t1, t2;
+                            srand((unsigned) (time(&t1)));
+                            srand((unsigned) (time(&t2)));
+                            r1 = rskill(t1);
+                            r2 = rskill(t2);
+                            nambahskill(&P.contents[urutan].skill, r1);
+                            nambahskill(&P.contents[urutan].skill, r2);
+                        }
+                        else if (lihatisi(P.contents[urutan].skill,x)==2 && P.contents[urutan].playerBuff.isCerminPengganda==false && NbElmt(P.contents[urutan].skill)>9){
+                            printf("Skill Cermin Pengganda hanya bisa digunakan ketika jumlah skill yang Anda miliki kurang dari atau sama dengan 9\n");
                         }
                         else if (lihatisi(P.contents[urutan].skill,x)==2 && P.contents[urutan].playerBuff.isCerminPengganda==true){
-                            printf("Anda telah memiliki buff cermin pengganda\n");
+                            printf("Anda telah memakai cermin pengganda di turn ini\n");
                         }
                         else if (lihatisi(P.contents[urutan].skill,x)==3 && P.contents[urutan].playerBuff.isSenterPembesar==false && P.contents[urutan].playerBuff.isSenterPengecil==false){
                             P.contents[urutan].playerBuff.isSenterPembesar = true;
@@ -218,6 +229,10 @@ int main() {
                     urutan = (urutan % npemain);
                 }
             } 
+
+            else if (strcmp(cmd, "ENDTURN")==0 && udahroll==false){
+                printf("Silakan melakukan ROLL terlebih dahulu sebelum melakukan ENDTURN!\n");
+            }
 
             else{
                 printf("Masukkan command yang sesuai!\n");
