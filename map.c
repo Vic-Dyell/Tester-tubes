@@ -27,6 +27,7 @@ void displayMap (MAP M, int posisi){
             printf("%c",M.contents[i]);
         }    
     }
+    printf("\n");
 }
 
 void copyMap (MAP *M1, MAP M2){
