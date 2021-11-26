@@ -355,7 +355,6 @@ void nambahskill (Listskill *L, int r){ // r di sini diambil dari randomize
 
     // harusnya udah dapet id skillnya
     if (skill1!=0 && NbElmt(*L)<10){
-        printf("a\n");
         InsVLast(L, skill1);
     } 
     else if (NbElmt(*L)>=10){

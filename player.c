@@ -1,7 +1,6 @@
 /* File : pemain.c */
 
 #include "player.h"
-#include "listskill.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,10 +14,10 @@ void CreateEmptyPlayer (ArrayP *P)
 ArrayP inputPlayer (ArrayP P, int i) 
 {
     Listskill S;
-    //CreateEmptySkill(&S);
+    CreateEmptySkill(&S);
     char namaPlayer[50];
     printf("Masukkan nama: ");
-    scanf("%s", &namaPlayer);
+    scanf("%s", namaPlayer);
     P.contents[i].playerName[50] = namaPlayer;
     P.contents[i].playerBuff.isCerminPengganda = false;
     P.contents[i].playerBuff.isImun = false;

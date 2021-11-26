@@ -147,7 +147,7 @@ boolean isPenghalang(status s, int rollDadu, IdxType i){
 /*Mengembalikan posisi pemain ditandai dengan tanda (*) pada MAP*/
 int posisi(status s, IdxType i) { 
     char nilai_posisi = '*';
-    for (int j = 1; j<= Length(s); j++){
+    for (int j = 1; j<= Lengthst(s); j++){
         if(s.contentsMapPlayer[i].contents[j] == nilai_posisi){
             return j;
         }
@@ -158,7 +158,7 @@ int posisi(status s, IdxType i) {
 /*Command MAP */
 void map(status s){
 /*Melakukan pencetakan nama pemain, peta, dan posisi pemain*/
-    for (int i = 1; i <= Length(s); i++){
+    for (int i = 1; i <= Lengthst(s); i++){
         printf("%s : %s %d", s.P.contents[i].playerName, s.contentsMapPlayer[i].contents, posisi(s,i));
     }
 }

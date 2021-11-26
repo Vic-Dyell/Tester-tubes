@@ -18,7 +18,7 @@ void displayMap (MAP M, int posisi){
     int i;
 
     /*ALGORITMA*/
-    i = 0;
+    i = 1;
     for (i; i<=Length(M);i++) {
         if (i==posisi){
             printf("%c", '*');

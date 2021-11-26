@@ -3,9 +3,9 @@
 #include "boolean.h"
 #include "player.h"
 #include "status.h"
+#include "map.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "map.h"
 #include <time.h>
 #include <math.h>
 
@@ -51,6 +51,7 @@ int main() {
     for(i=1;i<=npemain;i++){
         P = inputPlayer(P, i);
     }
+    printf("%s", P.contents[1].playerName);
     printf("MULAI\n");
     // MENU
     boolean endgame;
@@ -92,7 +93,7 @@ int main() {
                 }
                 printf("Anda mendapatkan dadu bernilai : %d\n", dadu);
                 udahroll = true;
-                MovePlayer(&P, dadu, M, urutan, Pt);
+                P.contents[urutan].position = MovePlayer(&P, dadu, M, urutan, Pt);
             }
             else if (strcmp(cmd, "ROLL")==0 && udahroll==true){
                 printf("Maaf Anda telah pernah melakukan roll pada turn ini.\n");
