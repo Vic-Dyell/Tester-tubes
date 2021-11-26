@@ -116,7 +116,7 @@ int main() {
             }
 
             else if (strcmp(cmd, "INSPECT")==0){
-                inspect(Pt, M);
+                // inspect(Pt, M);
             }
 
             else if (strcmp(cmd, "MAP")==0){
