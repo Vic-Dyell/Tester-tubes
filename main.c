@@ -62,6 +62,7 @@ int main() {
         boolean endturn = false;
         printf("Peta Anda: ");
         displayMap(M, P.contents[urutan].position);
+        printf("\n");
         time_t t;
         srand((unsigned) (time(&t)));
         r = rskill(t);

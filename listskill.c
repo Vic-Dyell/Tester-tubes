@@ -327,36 +327,36 @@ void DelI (Listskill *L, int n){
 }
 
 void nambahskill (Listskill *L, int r){ // r di sini diambil dari randomize
-    int skill;
+    int skill1;
     if (r==0){
-        skill = 1; // id skill 1 : Pintu Ga Ke Mana-Mana
+        skill1 = 1; // id skill 1 : Pintu Ga Ke Mana-Mana
         printf ("Selamat Anda mendapatkan Pintu Ga Ke Mana-Mana \n");
     }
     else if (r==1){ 
-        skill = 2; // id skill 2 : Cermin Pengganda
+        skill1 = 2; // id skill 2 : Cermin Pengganda
         printf ("Selamat Anda mendapatkan Cermin Pengganda \n");
     }
     else if (r==2 || r==3){ 
-        skill = 3; // id skill 3 : Senter Pembesar Hoki
+        skill1 = 3; // id skill 3 : Senter Pembesar Hoki
         printf ("Selamat Anda mendapatkan Senter Pembesar Hoki \n");
     }
     else if (r==4 || r==5){ 
-        skill = 4; // id skill 4 : Senter Pengecil Hoki
+        skill1 = 4; // id skill 4 : Senter Pengecil Hoki
         printf ("Selamat Anda mendapatkan Senter Pengecil Hoki \n");
     }
     else if (r==6){ 
-        skill = 5; // id skill 5 : Mesin Penukar Hoki
+        skill1 = 5; // id skill 5 : Mesin Penukar Hoki
         printf ("Selamat Anda mendapatkan Mesin Penukar Hoki \n");
     }  
     else if (r==7 || r==8 || r==9){ 
-        skill = 0; // skill 6 ga masuk ke list
+        skill1 = 0; // skill 6 ga masuk ke list
         printf("Sayang sekali... Anda mendapatkan Teknologi Gagal \n");
     }    
 
     // harusnya udah dapet id skillnya
-
-    if (skill!=0 && NbElmt(*L)<10){
-        InsVLast(L, skill);
+    if (skill1!=0 && NbElmt(*L)<10){
+        printf("a\n");
+        InsVLast(L, skill1);
     } 
     else if (NbElmt(*L)>=10){
         printf("Jumlah skill yang dimiliki sudah mencapai maksimum\n");
